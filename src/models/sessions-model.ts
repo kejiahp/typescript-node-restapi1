@@ -22,6 +22,6 @@ const SessionSchema = new mongoose.Schema<SessionDocument>({
 }, {timestamps: true})
 
 
-const Session = mongoose.model("Session", SessionSchema)
+const Session = mongoose.model<SessionDocument>("Session", SessionSchema)
 
 export default Session
