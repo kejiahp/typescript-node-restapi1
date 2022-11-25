@@ -1,11 +1,12 @@
 import jwt, { SignOptions } from "jsonwebtoken"
 import config from "config"
 
-const publicKey = config.get<string>("publicKey")
-const privateKey = config.get<string>("privateKey")
+const publicKey = config.get<string>("secretKey")
+const privateKey = config.get<string>("secretKey")
 
 export const signJwt = (object: object, options?: SignOptions) => {
-    return jwt.sign(object, privateKey, {...(options && options), algorithm:"RS256"})
+    // return jwt.sign(object, privateKey, {...(options && options), algorithm:"RS256"})
+    return jwt.sign(object, privateKey, {...(options && options)})
 }
 
 
@@ -19,6 +20,7 @@ export const verifyJwt = (token: string) => {
             decoded
         }
     }catch(e: any) {
+        console.error(e);
         return {
             valid: false,
             expired: e.message === "jwt expired",
